@@ -1,0 +1,35 @@
+<html> 
+<head> 
+<meta charset="UTF-8"> 
+<title>添加标签</title> 
+<style type="text/css"> 
+form { 
+  text-align: center; 
+} 
+</style> 
+</head> 
+<body> 
+  
+  <form action="add_tag.php" method="post" name="form_register"
+    onsubmit="return check()"> 
+    标签名<input type="text" name="tag_name" id="tag_name"><br>
+	标签代号<input type="text" name="tag_code" id="tag_code"><br>
+	标签描述<input type="text" name="tag_describe" id="tag_describe"><br>
+    <input type="submit" value="提交"> 
+  
+  </form> 
+  
+  <script type="text/javascript"> 
+    function check() { 
+      var tag_name=document.getElementById("tag_name").value; 
+      var regex=/^[/s]+$/; 
+        
+      if(regex.test(tag_name)||tag_name.length==0){ 
+        alert("标签名称不能为空"); 
+        return false; 
+      } 
+	   
+    } 
+  </script> 
+</body> 
+</html>

@@ -1,0 +1,21 @@
+<html>
+<head>
+<title>用户信息修改</title>
+</head>
+<body>
+<center>
+<h3>用户信息修改</h3>
+<p>仅修改需要变动的信息，其余留空即可。修改”是否禁用账户“和”是否为管理员“时，1代表启用，0代表不启用。</p>
+<form action="user_info_mod.php" method="post" name="find_user_info"> 
+  <!--onsubmit="return check()"-->
+    用户ID：<input type="text" name="user_id" id="user_id"><br>
+	用户名：<input type="text" name="user_name" id="user_name"><br>
+	邮箱：<input type="text" name="user_mail" id="user_mail"><br>
+	电话：<input type="text" name="user_phone" id="user_phone"><br>
+	是否禁用账户：<input type="text" name="user_disable" id="user_disable"><br>
+	是否为管理员：<input type="text" name="user_admin" id="user_admin"><br>
+    <input type="submit" name="submit" value="提交"> 
+</form> 
+</center>
+</body>
+</html>

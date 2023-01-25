@@ -1,0 +1,18 @@
+<html>
+<head>
+<title>用户信息修改</title>
+</head>
+<body>
+<center>
+<h3>用户信息修改</h3>
+<p>只需填写需要修改的项目，其余留空。用户ID（UID）不可修改，用户名可修改。</p>
+<form action="alter_user_info.php" method="post" name="alter_user_info"> 
+  <!--onsubmit="return check()"-->
+	用户名：<input type="text" name="user_name" id="user_name"><br>
+	邮箱：<input type="text" name="user_mail" id="user_mail"><br>
+	电话：<input type="text" name="user_phone" id="user_phone"><br>
+    <input type="submit" name="submit" value="提交"> 
+</form> 
+</center>
+</body>
+<html>

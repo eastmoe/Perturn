@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <title>补充资料：图片</title>
+ </head>
+ <body>
+<center>
+<h2>图片上传</h2>
+<p>您可以上传一张图片作为物品的补充资料</p>
+<!-- 文件上传得form表单 -->
+<form action="upimage.php" method="post" enctype="multipart/form-data">
+上传图片:
+<input type="file" name="pic">
+<input type="submit" value="上传">
+</form>
+<a href="welcome.php">不上传图片，直接返回个人主页</a>
+</center>
+ </body>
+</html>

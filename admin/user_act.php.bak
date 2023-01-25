@@ -1,0 +1,118 @@
+<html> 
+<head> 
+<meta charset="UTF-8"> 
+<title>账户操作中...</title> 
+</head> 
+<body>
+<?php
+session_start (); 
+if (isset ( $_SESSION ["code"] ))//判断code存不存在，如果不存在，说明异常登录
+{
+	$search_uid=$_SESSION["uid"];
+	$con=mysqli_connect("localhost","root","123456");
+	if(!$con){
+            echo "连接失败";
+        }
+	mysqli_select_db($con,"site1");	
+	$admin_user_search_result=mysqli_query($con,"SELECT * FROM user WHERE uid ='{$search_uid}';");  //查询user表确定登陆人
+	while ($row=mysqli_fetch_array($admin_user_search_result)) { 
+      $dbuser_admin_index=$row["admin_tag"]; 
+    }
+	if(is_null($dbuser_admin_index)){		
+		?>
+		<script type="text/javascript"> 
+		alert("你不是管理员！"); 
+		window.location.href="../welcome.php"; //不是管理员，跳转个人主页
+		</script> 
+		<?php		
+	}
+	else{
+		
+		
+			$button_value=null;
+			$mod_uid=null;
+			$button_value=$_POST['action'];//获取按钮值
+			$mod_uid=$_SESSION["temp_mod_user"];//从seesion获取需要修改的账户
+			
+			function  desable_accont($fuc_inner_uid)  {
+				mysqli_query($con,"UPDATE user SET isdelete = '1' WHERE uid ='{$fuc_inner_uid}';"); //用SQL禁用账户			
+				unset( $_SESSION['temp_mod_user']);//删除记录被修改账户的临时seesion
+				?>
+				<script type="text/javascript"> 
+				alert("已禁用该账户"); 
+				window.location.href="user_admin.php"; //返回账户管理页
+				</script> 
+				<?php			
+			}//禁用账户函数 
+						
+			function  enable_accont($fuc_inner_uid) {
+				mysqli_query($con,"UPDATE user SET isdelete = '0' WHERE uid ='{$fuc_inner_uid}';"); //用SQL启用账户	
+				unset( $_SESSION['temp_mod_user']);//删除记录被修改账户的临时seesion	
+				?>
+				<script type="text/javascript"> 
+				alert("已启用该账户"); 
+				window.location.href="user_admin.php"; //返回账户管理页
+				</script> 
+				<?php			
+			}//启用账户函数 
+		
+			function delete_warning(){
+				if(confirm("确定要删除吗？")){
+					alert('已确认删除');
+					return 1;
+				}else{
+					return 0;
+				}	
+			}//删除确认弹框函数
+		
+		
+			function  delete_accont($fuc_inner_uid){
+				$d_au=delete_warning();
+				if($d_qu>0){
+					mysqli_query($con,"UPDATE user SET isdelete = '0' WHERE uid ='{$fuc_inner_uid}';"); //用SQL删除账户	
+					unset( $_SESSION['temp_mod_user']);//删除记录被修改账户的临时seesion
+					?>
+					<script type="text/javascript"> 
+					alert("已删除该账户"); 
+					window.location.href="user_admin.php"; //返回账户管理页
+					</script> 
+					<?php				
+				} 		
+			}//删除函数
+			
+			
+			function jump_to_mod_page(){
+				?>
+					<script type="text/javascript"> 
+					window.location.href="user_info_mod.html"; //跳转账户信息修改页
+					</script> 
+				<?php
+			}//修改函数
+			
+			switch($button_value)//对按钮返回值做swich
+			{
+				case "disable_user":desable_accont($mod_uid);break;
+				case "act_user":enable_accont($mod_uid);break;
+				case "del_user":delete_accont($mod_uid);break;
+				case "mod_user":jump_to_mod_page();break;
+				default:break;
+			}
+			
+			
+			
+			
+		}
+}
+else{
+	?>
+	<script type="text/javascript"> 
+	alert("请先登录"); 
+	window.location.href="exit.php"; //不存在，跳转登陆页
+	</script> 
+	<?php
+}
+
+?>
+</form>
+</body> 
+</html>
